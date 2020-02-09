@@ -40,11 +40,11 @@ public class CsvRowWriter implements ItemWriter<CsvRow> {
 
   @Override
   public void write(List<? extends CsvRow> list) throws IOException {
-    if (header == null) {
+   /* if (header == null) {
       header = (String[])jobExecutionContext.getExecutionContext().get(threadName);
       log.info(threadName+"------------------------------------------"+header);
       this.csvWriter.writeHeader(header);
-    }
+    }*/
     for (CsvRow csvRow:list){
       csvWriter.write(csvRow.getMapRow(), header);
     }
