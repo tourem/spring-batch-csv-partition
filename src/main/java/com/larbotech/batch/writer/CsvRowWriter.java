@@ -27,13 +27,13 @@ public class CsvRowWriter implements ItemWriter<CsvRow> {
   private String head;
   private ICsvMapWriter csvWriter;
 
-  public CsvRowWriter(String threadName, String fileName, JobExecution jobExecutionContext) throws IOException {
+  public CsvRowWriter(String threadName, String fileName, JobExecution jobExecutionContext)
+      throws IOException {
     this.threadName = threadName;
     this.fileName = fileName;
     this.csvWriter = new CsvMapWriter(new FileWriter(fileName), CsvPreference.STANDARD_PREFERENCE);
     this.jobExecutionContext = jobExecutionContext;
-    header = (String[])jobExecutionContext.getExecutionContext().get(threadName);
-    log.info(threadName+"------------------------------------------"+header);
+    header = (String[]) jobExecutionContext.getExecutionContext().get(threadName);
     this.csvWriter.writeHeader(header);
 
   }
@@ -45,8 +45,9 @@ public class CsvRowWriter implements ItemWriter<CsvRow> {
       log.info(threadName+"------------------------------------------"+header);
       this.csvWriter.writeHeader(header);
     }*/
-    for (CsvRow csvRow:list){
+    for (CsvRow csvRow : list) {
       csvWriter.write(csvRow.getMapRow(), header);
+      csvWriter.flush();
     }
 
   }
@@ -57,8 +58,7 @@ public class CsvRowWriter implements ItemWriter<CsvRow> {
   }
 
   @AfterStep
-  public void afterStep(StepExecution stepExecution) throws IOException{
-    csvWriter.flush();
+  public void afterStep(StepExecution stepExecution) throws IOException {
     csvWriter.close();
   }
 }

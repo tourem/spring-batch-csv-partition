@@ -38,6 +38,9 @@ public class BatchConfiguration {
 
 
   @Autowired
+  ConfigProperties configProperties;
+
+  @Autowired
   public JobBuilderFactory jobBuilderFactory;
 
   @Autowired
@@ -140,7 +143,7 @@ public class BatchConfiguration {
     ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
     Resource[] resources = null;
     try {
-      resources = resolver.getResources("/*.csv");
+      resources = resolver.getResources(configProperties.getIntDirectory() + "/*.csv");
     } catch (IOException e) {
       e.printStackTrace();
     }

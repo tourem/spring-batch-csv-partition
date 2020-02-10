@@ -1,0 +1,16 @@
+CustomerId,CustomerName,Country,PinCode,Email
+10001,Lokesh,India,110001,abc@gmail.com
+10002,John,USA,220002,def@gmail.com
+10003,Blue,France,330003,ghi@gmail.com
+10004,Reddy,Jermany,440004,abc@gmail.com
+10005,Kumar,India,110001,def@gmail.com
+10006,Paul,USA,220002,ghi@gmail.com
+10007,Grimm,France,330003,abc@gmail.com
+10008,WhoAmI,Jermany,440004,def@gmail.com
+10009,Bharat,India,110001,ghi@gmail.com
+10010,Rocky,USA,220002,abc@gmail.com
+10011,Voella,France,330003,def@gmail.com
+10012,Gruber,Jermany,440004,ghi@gmail.com
+10013,Satty,India,110001,abc@gmail.com
+10014,Bean,USA,220002,def@gmail.com
+10015,Krish,France,330003,ghi@gmail.com
