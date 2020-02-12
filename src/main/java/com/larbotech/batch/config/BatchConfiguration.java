@@ -1,12 +1,15 @@
 package com.larbotech.batch.config;
 
-import com.larbotech.batch.model.CsvRow;
-import com.larbotech.batch.reader.CsvRowReader;
-import com.larbotech.batch.writer.CsvRowWriter;
-import com.larbotech.batch.partitioner.CustomMultiResourcePartitioner;
 import com.larbotech.batch.JobCompletionNotificationListener;
+import com.larbotech.batch.model.CsvRow;
+import com.larbotech.batch.partitioner.CustomMultiResourcePartitioner;
 import com.larbotech.batch.processor.RowItemProcessor;
+import com.larbotech.batch.reader.CsvRowReader;
+import com.larbotech.batch.writer.CsvRowLogWriter;
+import com.larbotech.batch.writer.CsvRowWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.Step;
@@ -19,8 +22,12 @@ import org.springframework.batch.core.job.flow.Flow;
 import org.springframework.batch.core.job.flow.support.SimpleFlow;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
 import org.springframework.batch.core.partition.support.Partitioner;
+import org.springframework.batch.item.ItemWriter;
+import org.springframework.batch.item.support.ClassifierCompositeItemWriter;
+import org.springframework.batch.item.support.CompositeItemWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.classify.Classifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -75,6 +82,35 @@ public class BatchConfiguration {
     return new CsvRowWriter(partitionId, fileName, csvRowReader.getJobExecutionContext());
   }
 
+
+  @Bean
+  public CsvRowLogWriter csvRowLogWriter() {
+    return new CsvRowLogWriter();
+  }
+
+  @Bean
+  public ClassifierCompositeItemWriter<CsvRow> classifierCompositeItemWriter(
+      CsvRowWriter csvRowWriter,
+      CsvRowLogWriter csvRowLogWriter) {
+    ClassifierCompositeItemWriter<CsvRow> classifierCompositeItemWriter = new ClassifierCompositeItemWriter<>();
+
+    CompositeItemWriter<CsvRow> csvRowCompositeItemWriter = new CompositeItemWriter<>();
+    List<ItemWriter<? super CsvRow>> delegates = new ArrayList<>(2);
+    delegates.add(csvRowWriter);
+    delegates.add(csvRowLogWriter);
+    csvRowCompositeItemWriter.setDelegates(delegates);
+
+
+    classifierCompositeItemWriter.setClassifier(csvRow -> {
+      if (csvRow.getRow() != null && csvRow.getRow().contains("log")) {
+        return csvRowCompositeItemWriter;
+      }
+      return csvRowWriter;
+    });
+
+    return classifierCompositeItemWriter;
+  }
+
   @Bean
   public Job importUserJob(JobCompletionNotificationListener listener, Step masterStep) {
     return jobBuilderFactory.get("importUserJob")
@@ -91,7 +127,7 @@ public class BatchConfiguration {
         .<CsvRow, CsvRow>chunk(10)
         .reader(reader(null, null, null))
         .processor(processor(null, null))
-        .writer(writer(null, null, null))
+        .writer(classifierCompositeItemWriter( null, null))
         .build();
   }
 

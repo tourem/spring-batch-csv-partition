@@ -41,4 +41,13 @@ public class CsvRow {
   public void setWrite(boolean write) {
     this.write = write;
   }
+
+  @Override
+  public String toString() {
+    return "CsvRow{" +
+        "mapRow=" + mapRow +
+        ", row='" + row + '\'' +
+        ", write=" + write +
+        '}';
+  }
 }
