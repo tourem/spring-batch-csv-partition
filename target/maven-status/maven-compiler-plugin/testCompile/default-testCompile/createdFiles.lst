@@ -1,0 +1,5 @@
+com/larbotech/batch/writer/CsvRowWriterTest.class
+com/larbotech/batch/config/TestConfig$BatchConfiguration.class
+com/larbotech/batch/reader/CsvRowReaderTest.class
+com/larbotech/batch/config/TestConfig.class
+com/larbotech/batch/config/AbstractTests.class

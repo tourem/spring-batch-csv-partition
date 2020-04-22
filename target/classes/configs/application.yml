@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    config:
+      allowOverride: true
+      failFast: true
+      overrideNone: false
+      overrideSystemProperties: false
+
+batch:
+  outDirectory: 'classpath:data'
+  intDirectory: 'classpath:data'
+#
+# CONFIGURATION TAILLE DES LOTS
+# ----------------------------------------------------------------------------------------------------------------------
+step:
+  chunk:
+    size: 1
+  skip:
+    limit: 5

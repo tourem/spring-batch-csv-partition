@@ -44,8 +44,14 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 public class BatchConfiguration {
 
 
-  @Autowired
-  ConfigProperties configProperties;
+  @Value("${batch.outDirectory}")
+  private String outDirectory;
+
+  @Value("${step.chunk.size}")
+  private int chunkSize;
+
+  @Value("${batch.intDirectory}")
+  private String intDirectory;
 
   @Autowired
   public JobBuilderFactory jobBuilderFactory;
@@ -179,7 +185,7 @@ public class BatchConfiguration {
     ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
     Resource[] resources = null;
     try {
-      resources = resolver.getResources(configProperties.getIntDirectory() + "/*.csv");
+      resources = resolver.getResources(intDirectory + "/*.csv");
     } catch (IOException e) {
       e.printStackTrace();
     }

@@ -1,0 +1,4 @@
+/Users/mtoure/dev/bnp/spring-batch-csv-partition/src/test/java/com/larbotech/batch/config/TestConfig.java
+/Users/mtoure/dev/bnp/spring-batch-csv-partition/src/test/java/com/larbotech/batch/reader/CsvRowReaderTest.java
+/Users/mtoure/dev/bnp/spring-batch-csv-partition/src/test/java/com/larbotech/batch/writer/CsvRowWriterTest.java
+/Users/mtoure/dev/bnp/spring-batch-csv-partition/src/test/java/com/larbotech/batch/config/AbstractTests.java

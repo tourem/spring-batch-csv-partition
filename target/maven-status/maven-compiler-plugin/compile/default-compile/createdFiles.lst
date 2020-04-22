@@ -1,0 +1,11 @@
+com/larbotech/batch/JobCompletionNotificationListener.class
+com/larbotech/batch/writer/CsvRowLogWriter.class
+com/larbotech/batch/partitioner/CustomMultiResourcePartitioner.class
+com/larbotech/batch/Main.class
+com/larbotech/batch/model/CsvRow.class
+com/larbotech/batch/reader/CsvRowReader.class
+com/larbotech/batch/writer/CsvRowWriter.class
+com/larbotech/batch/config/BatchConfiguration.class
+com/larbotech/batch/Application.class
+com/larbotech/batch/processor/RowItemProcessor.class
+com/larbotech/batch/config/ConfigProperties.class
