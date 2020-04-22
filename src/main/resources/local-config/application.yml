@@ -7,8 +7,8 @@ spring:
       overrideSystemProperties: false
 
 batch:
-  outDirectory: 'classpath:data'
-  intDirectory: 'classpath:data'
+  outDirectory: '//Users/mtoure/dev/bnp/spring-batch-csv-partition/src/main/resources/data'
+  intDirectory: '//Users/mtoure/dev/bnp/spring-batch-csv-partition/src/main/resources/data'
 #
 # CONFIGURATION TAILLE DES LOTS
 # ----------------------------------------------------------------------------------------------------------------------
